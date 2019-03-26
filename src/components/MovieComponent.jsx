@@ -41,6 +41,7 @@ class MovieComponent extends Component {
   render() {
     return (
       <Col md="6">
+        <br />
         <img
           src={this.props.movie.poster_src}
           width="150px"

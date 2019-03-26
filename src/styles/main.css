@@ -7,6 +7,7 @@
   right: 0;
   bottom: 0;
   margin: auto;
+  overflow-y: auto;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -17,5 +18,43 @@
   margin: auto;
   width: 80%;
   background: white;
+}
+
+.donutchart-track {
+  fill: transparent;
+  stroke: #dae2e5;
+  /*   stroke-width: 26; */
+}
+
+.donutchart-indicator {
+  fill: transparent;
+  stroke: #009688;
+  /*   stroke-width: 26; */
+  stroke-dasharray: 0 10000;
+  -webkit-transition: stroke-dasharray 0.3s ease;
+  transition: stroke-dasharray 0.3s ease;
+}
+
+.donutchart {
+  margin: 0 auto;
+  border-radius: 50%;
+  display: block;
+}
+
+.donutchart-text {
+  font-family: "Roboto";
+  fill: #607580;
+}
+
+.donutchart-text-val {
+  font-size: 25px;
+}
+
+.donutchart-text-percent {
+  font-size: 10px;
+}
+
+.donutchart-text-label {
+  font-size: 9px;
 }
 /*# sourceMappingURL=main.css.map */

@@ -17,8 +17,18 @@ $color: (
   right: 0;
   bottom: 0;
   margin: auto;
+  overflow-y: auto;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+// .popup {
+//   scrollbar-width: none; /* Firefox */
+//   -ms-overflow-style: none; /* IE 10+ */
+//   &::-webkit-scrollbar {
+//     width: 10px;
+//     background: transparent; /* Chrome/Safari/Webkit */
+//   }
+// }
 
 .popup_inner {
   position: map-get($position, absolute_pos);
@@ -27,4 +37,36 @@ $color: (
   margin: auto;
   width: 80%;
   background: map-get($color, white_color);
+}
+
+// DonutChart
+.donutchart-track {
+  fill: transparent;
+  stroke: #dae2e5;
+  /*   stroke-width: 26; */
+}
+.donutchart-indicator {
+  fill: transparent;
+  stroke: #009688;
+  /*   stroke-width: 26; */
+  stroke-dasharray: 0 10000;
+  transition: stroke-dasharray 0.3s ease;
+}
+.donutchart {
+  margin: 0 auto;
+  border-radius: 50%;
+  display: block;
+}
+.donutchart-text {
+  font-family: "Roboto";
+  fill: #607580;
+}
+.donutchart-text-val {
+  font-size: 25px;
+}
+.donutchart-text-percent {
+  font-size: 10px;
+}
+.donutchart-text-label {
+  font-size: 9px;
 }
