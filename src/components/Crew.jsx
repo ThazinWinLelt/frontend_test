@@ -13,13 +13,12 @@ class Crew extends Component {
 
     const crewUrl =
       "https://api.themoviedb.org/3/movie/" +
-      284053 +
+      movieid +
       "/credits?api_key=3f65479b1b805e16f59869747d8ef2bf";
     $.ajax({
       url: crewUrl,
       success: (result, status, xhr) => {
         this.setState({ crew: result.crew });
-        console.log(this.state.crew);
       },
       error: (xhr, status, err) => {
         console.error("Failed to fetch data");

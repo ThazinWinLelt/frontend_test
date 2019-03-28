@@ -1,12 +1,24 @@
 import React, { Component } from "react";
-import { Col } from "reactstrap";
 import $ from "jquery";
 import DetailPopup from "./DetailPopup.jsx";
+import "../styles/main.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Popup from "reactjs-popup";
+
+import {
+  Card,
+  CardImg,
+  CardTitle,
+  CardFooter,
+  CardBody,
+  CardImgOverlay,
+  CardText
+} from "reactstrap";
 
 class MovieComponent extends Component {
   state = {
     genre: "",
-    showPopup: false
+    open: false
   };
 
   constructor(props) {
@@ -30,41 +42,78 @@ class MovieComponent extends Component {
         console.error("Failed to fetch data");
       }
     });
+
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
-  togglePopup() {
-    this.setState({
-      showPopup: !this.state.showPopup
-    });
+  openModal() {
+    this.setState({ open: true });
+    console.log("clicked.......");
+  }
+  closeModal() {
+    this.setState({ open: false });
   }
 
   render() {
     return (
-      <Col md="6">
-        <br />
-        <img
-          src={this.props.movie.poster_src}
-          width="150px"
-          height="200px"
-          alt="movie poster"
-        />
-        <br />
-        <button onClick={this.togglePopup.bind(this)}>
-          {this.props.movie.title}
-        </button>
-        <br />
-        {this.state.genre}
-        <br />
-        {this.props.movie.release_date}
-        <br />
-
-        {this.state.showPopup ? (
+      <Card
+        className="card-4"
+        key={this.props.movie.id}
+        style={{ border: "none" }}
+      >
+        <div className="cardoverlay">
+          <CardImg
+            style={{ borderRadius: "0px" }}
+            src={this.props.movie.poster_src}
+            alt={this.props.movie.poster_src}
+            width="210px"
+            height="315px"
+          />
+          <CardImgOverlay
+            className="overlay"
+            // onClick={this.togglePopup.bind(this)}
+            onClick={this.openModal}
+          >
+            <CardTitle className="overlay-title">
+              {this.props.movie.title}
+            </CardTitle>
+            <CardText className="overlay-text">
+              {this.props.movie.overview}
+            </CardText>
+          </CardImgOverlay>
+        </div>
+        <CardBody className="cardbody-1" style={{ padding: "0" }}>
+          <CardTitle className="cardtitle-1">
+            {this.props.movie.title}
+          </CardTitle>
+          <div className="cardsub-1">
+            Genres:&nbsp;
+            <span className="cardsub-3">{this.state.genre}</span>
+          </div>
+          <div className="cardsub-2">
+            Year:&nbsp;
+            <span className="cardsub-3">{this.props.movie.release_date}</span>
+          </div>
+        </CardBody>
+        <CardFooter style={{ backgroundColor: "#3c4665" }}>
+          {this.props.movie.vote_average}
+        </CardFooter>
+        <Popup
+          modal
+          open={this.state.open}
+          closeOnDocumentClick
+          onClose={this.closeModal}
+          lockScroll
+        >
           <DetailPopup
             movieid={this.props.movie.id}
-            closePopup={this.togglePopup.bind(this)}
+            close={this.closeModal}
+            genre={this.state.genre}
+            release_date={this.props.movie.release_date}
           />
-        ) : null}
-      </Col>
+        </Popup>
+      </Card>
     );
   }
 }

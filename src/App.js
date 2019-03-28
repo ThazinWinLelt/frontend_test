@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./styles/main.css";
 import $ from "jquery";
 import MovieComponent from "./components/MovieComponent.jsx";
-import { Row } from "reactstrap";
 
 class App extends Component {
   constructor(props) {
@@ -10,6 +9,8 @@ class App extends Component {
     this.state = {
       movies: {}
     };
+
+    this.getPopularHandler();
   }
   getPopularHandler() {
     const urlString =
@@ -85,7 +86,7 @@ class App extends Component {
 
   getMoviesList(movies) {
     const movieRows = [];
-
+    console.log(movies);
     movies.forEach(movie => {
       movie.poster_src = "https://image.tmdb.org/t/p/w185" + movie.poster_path;
       const movieRow = <MovieComponent key={movie.id} movie={movie} />;
@@ -97,30 +98,37 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <div className="App">
+      <div className="main">
+        <div className="header">All Movies</div>
+        <div className="buttons">
           <input
             type="button"
             onClick={this.getPopularHandler.bind(this)}
+            className="popular"
             value="popular"
           />
           <input
             type="button"
             onClick={this.getTopRatedHandler.bind(this)}
+            className="top-rated"
             value="top rated"
           />
           <input
             type="button"
             onClick={this.getUpcomingHandler.bind(this)}
+            className="upcoming"
             value="upcoming"
           />
           <input
             type="button"
             onClick={this.getNowPlayHandler.bind(this)}
+            className="now-play"
             value="now playing"
           />
         </div>
-        <Row>{this.state.rows}</Row>
+        <div className="body container-fluid">
+          <div className="row">{this.state.rows}</div>
+        </div>
       </div>
     );
   }
