@@ -25,12 +25,13 @@ class Trailer extends Component {
       success: (result, status, xhr) => {
         trailers = result.results;
 
-        for (const [index, value] of trailers.entries()) {
+        trailers.forEach(value => {
           if (value.type === "Trailer") {
             trailer.push(value.key);
             channel.push(value.site.toLowerCase());
           }
-        }
+        });
+
         trailer = trailer.splice(0, 1);
         channel = channel.splice(0, 1);
         this.setState({ trailer: trailer });

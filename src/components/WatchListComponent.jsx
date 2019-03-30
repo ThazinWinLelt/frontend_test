@@ -14,10 +14,11 @@ import {
   CardText
 } from "reactstrap";
 
-class MovieComponent extends Component {
+class WatchListComponent extends Component {
   state = {
     genre: "",
-    open: false
+    open: false,
+    remove: false
   };
 
   constructor(props) {
@@ -53,12 +54,38 @@ class MovieComponent extends Component {
     this.setState({ open: false });
   }
 
+  removeWatchList() {
+    let local = localStorage.getItem("watchlist");
+    local = JSON.parse(local);
+
+    this.distinctWatchList(local, this.props.movie.id);
+    this.setState({ remove: true });
+  }
+
+  distinctWatchList(watchlist, comp) {
+    let list = [];
+
+    localStorage.clear("watchlist");
+    watchlist.forEach(value => {
+      if (value.id !== comp) {
+        list.push(value);
+      }
+    });
+    localStorage.setItem("watchlist", JSON.stringify(list));
+
+    return list;
+  }
+
   render() {
     return (
       <Card
         className="card-4"
         key={this.props.movie.id}
-        style={{ border: "none", backgroundColor: "#2b3247" }}
+        style={
+          this.state.remove === false
+            ? { border: "none", backgroundColor: "#2b3247" }
+            : { border: "none", backgroundColor: "#2b3247", display: "none" }
+        }
       >
         <div className="cardoverlay">
           <CardImg
@@ -90,7 +117,14 @@ class MovieComponent extends Component {
             <span className="cardsub-3">{this.props.movie.release_date}</span>
           </div>
         </CardBody>
+
         <div className="footer-vote">{this.props.movie.vote_average}</div>
+        <div
+          className="footer-remove"
+          onClick={this.removeWatchList.bind(this)}
+        >
+          Remove
+        </div>
 
         <Popup
           modal
@@ -111,4 +145,4 @@ class MovieComponent extends Component {
   }
 }
 
-export default MovieComponent;
+export default WatchListComponent;

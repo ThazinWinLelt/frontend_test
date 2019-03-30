@@ -150,9 +150,12 @@
   background-color: #2b3247;
 }
 
-.main .buttons,
+.main .buttons {
+  padding: 0 2em 2em 2em;
+}
+
 .main .header {
-  padding: 3rem;
+  padding: 2em 3em 1em 1em;
 }
 
 .header {
@@ -185,7 +188,7 @@
 }
 
 .donutchart-text {
-  font-family: "Helvetica";
+  font-family: Helvetica;
 }
 
 .donutchart-text-val {
@@ -204,7 +207,8 @@
   font-size: 9px;
 }
 
-.chart-text {
+.chart-text, .bookmark,
+.add-watchlist {
   font-family: SFCompactDisplay;
   font-size: 12px;
   line-height: 30px;
@@ -224,8 +228,8 @@
 }
 
 .card-1 {
-  width: 95px;
-  padding-right: 0.5em;
+  width: 105px;
+  padding-right: 0.3em;
 }
 
 .card-3 {
@@ -241,13 +245,12 @@
   display: inline-table;
   width: 210px;
   height: 100%;
-  margin-left: 3em;
+  margin-left: 1em;
   margin-bottom: 1em;
-  background-color: #2b3247;
 }
 
 .cardbody-1 {
-  height: 120px;
+  height: 125px;
   background-color: #2b3247;
 }
 
@@ -257,7 +260,6 @@
   width: 100%;
   font-family: Helvetica;
   font-size: 15px;
-  line-height: 30px;
   color: #50e3c2;
 }
 
@@ -285,13 +287,27 @@
   color: #50e3c2;
 }
 
-.card-footer {
+.footer-vote {
   background-color: #3c4665;
   border-radius: 4px;
   font-family: SFCompactDisplay;
   font-size: 24px;
   line-height: 29px;
   color: #50e3c2;
+  padding: 10px;
+}
+
+.footer-remove {
+  font-family: Helvetica;
+  font-size: 15px;
+  line-height: 15px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #2b3247;
+  border-radius: 4px;
+  padding: 1rem;
+  background-color: #50e3c2;
+  margin-top: 0.5em;
 }
 
 .card-img {
@@ -302,6 +318,7 @@
   opacity: 0;
   text-align: center;
   margin-top: 4em;
+  height: 200px;
 }
 
 .cardoverlay:hover .overlay {
@@ -316,7 +333,7 @@
   width: 100px;
 }
 
-.cast-title {
+.cast-title, .crew-job, .crew-name {
   font-family: SFCompactDisplay;
   font-size: 14px;
 }
@@ -403,7 +420,7 @@
 }
 
 .right-section {
-  padding-right: 3em;
+  padding-right: 2em;
   position: absolute;
   right: 0;
   top: 2em;
@@ -411,7 +428,7 @@
 }
 
 .detail-img {
-  padding: 2em 2em 2em 3em;
+  padding: 1em 0.5em 1em 1.5em;
   margin: 0px;
 }
 
@@ -433,6 +450,34 @@
   color: #50e3c2;
   padding-top: 1em;
   padding-bottom: 1em;
+}
+
+.bookmark,
+.add-watchlist {
+  display: inline-table;
+}
+
+.bookmark svg,
+.add-watchlist svg {
+  font-family: Font Awesome 5 Free;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 30px;
+  color: white;
+  background: #2b3247;
+}
+
+.bookmark-icon,
+.addwatch-icon {
+  background: #2b3247;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.bookmark .bookmark-text,
+.add-watchlist .addwatch-text {
+  padding: 8px 20px 8px 8px;
 }
 
 .card-2 {
@@ -465,8 +510,14 @@
   color: #50e3c2;
 }
 
-.line-1 {
+.line-1, .line-2 {
   border: 1px solid #50e3c2;
+}
+
+.line-2 {
+  width: 113px;
+  margin-left: 0;
+  margin-top: 0.1em;
 }
 
 .sub-header {
@@ -506,7 +557,7 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border-radius: 4px;
-  background-color: transparent;
+  background-color: inherit;
   width: 150px;
   height: 30px;
   font-family: SFCompactText;
@@ -514,5 +565,114 @@
   line-height: normal;
   text-transform: uppercase;
   color: #ffffff;
+  margin: 0.3em;
+}
+
+.buttons button.active {
+  background-color: #50e3c2;
+  color: #2b3247;
+}
+
+/* Tab Menu */
+.tab {
+  height: 100%;
+  width: 100px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgba(80, 227, 194, 0.839646);
+  overflow-x: hidden;
+  padding-top: 8em;
+}
+
+.tab button {
+  display: block;
+  background-color: transparent;
+  padding: 16px;
+  width: 100%;
+  height: 80px;
+  border: none;
+  outline: none;
+  text-align: center;
+}
+
+.tab button.active {
+  background-color: #2b3247;
+}
+
+.tab button.active svg {
+  color: #8c93aa;
+}
+
+.main {
+  margin-left: 100px;
+}
+
+.tabcontent {
+  background-color: #2b3247;
+  margin-left: 100px;
+  /* Same as the width of the sidenav */
+  font-size: 28px;
+  /* Increased text to enable scrolling */
+  padding: 0px;
+}
+
+.searchBox {
+  border: none;
+  background: #2b3247;
+  color: #b9bfd1;
+  width: 90%;
+  margin-left: 0.5em;
+  margin-bottom: 0.5em;
+  padding: 0;
+}
+
+.search {
+  font-family: SFCompactText;
+  font-size: 18px;
+  line-height: 21px;
+  padding: 0;
+  border-bottom: 1px solid #e8eaf2;
+  margin-left: 1.8em;
+  margin-right: 2.5em;
+}
+
+.search-icon {
+  margin-left: 1em;
+  color: #b9bfd1;
+  stroke-width: 1;
+  opacity: 0.7;
+}
+
+.bars,
+.stars {
+  font-family: Font Awesome 5 Free;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 40px;
+  line-height: 50px;
+  color: white;
+}
+
+.crew {
+  width: 100%;
+}
+
+.crew div {
+  display: inline-table;
+  padding: 0;
+}
+
+.crew-job {
+  padding: 0;
+  width: 30%;
+  color: #e2e5ef;
+}
+
+.crew-name {
+  padding: 0;
+  width: 70%;
+  color: #50e3c2;
 }
 /*# sourceMappingURL=main.css.map */

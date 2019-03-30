@@ -4,7 +4,9 @@ import $ from "jquery";
 
 class Crew extends Component {
   state = {
-    crew: {}
+    director: [],
+    story: [],
+    writer: []
   };
 
   constructor(props) {
@@ -18,7 +20,28 @@ class Crew extends Component {
     $.ajax({
       url: crewUrl,
       success: (result, status, xhr) => {
-        this.setState({ crew: result.crew });
+        let crews = result.crew;
+        let director = [];
+        let story = [];
+        let writer = [];
+
+        crews.forEach(crew => {
+          if (crew.job === "Director") {
+            director.push(crew.name);
+          } else if (crew.job === "Writer") {
+            writer.push(crew.name);
+          } else if (crew.job === "Story") {
+            story.push(crew.name);
+          }
+        });
+
+        director = director.splice(0, 1);
+        writer = writer.splice(0, 3);
+        story = story.splice(0, 1);
+
+        this.setState({ director });
+        this.setState({ writer });
+        this.setState({ story });
       },
       error: (xhr, status, err) => {
         console.error("Failed to fetch data");
@@ -27,8 +50,31 @@ class Crew extends Component {
   }
   render() {
     return (
-      <div>
-        <h3>crew</h3>
+      <div className="crew">
+        {this.state.director.map(data => {
+          return (
+            <div className="col-6" key={data + "-director"}>
+              <div className="crew-job">Director</div>
+              <div className="crew-name">{data}</div>
+            </div>
+          );
+        })}
+        {this.state.writer.map(data => {
+          return (
+            <div className="col-6" key={data + "-writer"}>
+              <div className="crew-job">Writer</div>
+              <div className="crew-name">{data}</div>
+            </div>
+          );
+        })}
+        {this.state.story.map(data => {
+          return (
+            <div className="col-6" key={data + " story"}>
+              <div className="crew-job">Story</div>
+              <div className="crew-name">{data}</div>
+            </div>
+          );
+        })}
       </div>
     );
   }

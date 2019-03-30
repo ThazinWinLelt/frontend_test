@@ -7,12 +7,14 @@ import Cast from "./Cast.jsx";
 import Crew from "./Crew.jsx";
 import Background from "./Background.jsx";
 import Trailer from "./Trailer.jsx";
+import { FaBookmark, FaStar } from "../../node_modules/react-icons/fa";
 
 class DetailPopup extends Component {
   state = {
     apiKey: "3f65479b1b805e16f59869747d8ef2bf",
     detail: {},
-    runtime: ""
+    runtime: "",
+    watchlist: false
   };
 
   constructor(props) {
@@ -41,6 +43,79 @@ class DetailPopup extends Component {
     });
   }
 
+  componentDidMount() {
+    this.existInWatchList();
+  }
+  existInWatchList() {
+    let local = localStorage.getItem("watchlist");
+    local = JSON.parse(local);
+
+    local.forEach(value => {
+      if (value.id === this.props.movieid) {
+        this.setState({ watchlist: true });
+      }
+    });
+  }
+
+  addWatchlist() {
+    let local = localStorage.getItem("watchlist");
+    let watchlist = [];
+
+    if (local) {
+      watchlist = JSON.parse(local);
+      watchlist.push(this.state.detail);
+      watchlist = this.distinctWatchList(watchlist, "id");
+      let set = new Set(watchlist);
+      watchlist = Array.from(set);
+      localStorage.setItem("watchlist", JSON.stringify(watchlist));
+      console.log("1");
+    } else {
+      watchlist.push(this.state.detail);
+      localStorage.setItem("watchlist", JSON.stringify(watchlist));
+      console.log("2");
+    }
+
+    this.setState({ watchlist: true });
+  }
+
+  distinctWatchList(watchlist, comp) {
+    console.log(watchlist);
+
+    const unique = watchlist
+      .map(e => e[comp])
+
+      // store the keys of the unique objects
+      .map((e, i, final) => final.indexOf(e) === i && i)
+
+      // eliminate the dead keys & store unique objects
+      .filter(e => watchlist[e])
+      .map(e => watchlist[e]);
+
+    return unique;
+  }
+
+  removeWatchList() {
+    let local = localStorage.getItem("watchlist");
+    local = JSON.parse(local);
+
+    this.deleteWatchList(local, this.props.movieid);
+    this.setState({ watchlist: false });
+  }
+
+  deleteWatchList(watchlist, comp) {
+    let list = [];
+
+    localStorage.clear("watchlist");
+    for (const [index, value] of watchlist.entries()) {
+      if (value.id !== comp) {
+        list.push(value);
+      }
+    }
+    localStorage.setItem("watchlist", JSON.stringify(list));
+
+    return list;
+  }
+
   render() {
     return (
       <div className="popup-main">
@@ -54,7 +129,7 @@ class DetailPopup extends Component {
                     cy="10"
                     r="8"
                     stroke="#50e3c2"
-                    stroke-width="1"
+                    strokeWidth="1"
                     fill="transparent"
                   />
                   <polyline
@@ -76,11 +151,37 @@ class DetailPopup extends Component {
                 }
                 alt={this.state.detail.title}
               />
+              <div className="bookmark">
+                <span className="bookmark-icon">
+                  <FaBookmark />
+                </span>
+                <span className="bookmark-text">Bookmark</span>
+              </div>
+              <div
+                className="add-watchlist"
+                onClick={
+                  this.state.watchlist === false
+                    ? this.addWatchlist.bind(this)
+                    : this.removeWatchList.bind(this)
+                }
+              >
+                <span className="addwatch-icon">
+                  <FaStar
+                    style={
+                      this.state.watchlist === true
+                        ? { color: "orange" }
+                        : { color: "white" }
+                    }
+                  />
+                </span>
+                <span className="addwatch-text">Add Watchlist</span>
+              </div>
             </div>
-            <h6 className="sub-header" style={{ paddingLeft: "2.5em" }}>
-              Related Movies
+            <h6 className="sub-header" style={{ paddingLeft: "2em" }}>
+              {this.state.detail.belongs_to_collection != null &&
+                "Related Movies"}
             </h6>
-            <div className="container-fluid" style={{ paddingLeft: "3.8em" }}>
+            <div className="container-fluid" style={{ paddingLeft: "2em" }}>
               <div className="row">
                 {this.state.detail.belongs_to_collection != null && (
                   <RelatedMovie
@@ -137,8 +238,10 @@ class DetailPopup extends Component {
             </div>
 
             <h6 className="sub-header">Feature Crew</h6>
-            <div>
-              <Crew movieid={this.props.movieid} />
+            <div className="container-fluid">
+              <div className="row">
+                <Crew movieid={this.props.movieid} />
+              </div>
             </div>
 
             <hr className="line-1" />

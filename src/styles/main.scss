@@ -30,9 +30,11 @@ $lineheight: (
 .main {
   background-color: map-get($color, color_1);
 
-  .buttons,
+  .buttons {
+    padding: 0 2em 2em 2em;
+  }
   .header {
-    padding: 3rem;
+    padding: 2em 3em 1em 1em;
   }
 }
 
@@ -42,38 +44,6 @@ $lineheight: (
   line-height: map-get($lineheight, height_1);
   color: map-get($color, white_color);
 }
-
-// .popup {
-//   position: map-get($position, fix_pos);
-//   width: 100%;
-//   height: 100%;
-//   top: 0;
-//   left: 0;
-//   right: 0;
-//   bottom: 0;
-//   margin: auto;
-//   overflow-y: auto;
-//   background-color: rgba(0, 0, 0, 0.5);
-//   z-index: 1;
-// }
-
-// .popup {
-//   scrollbar-width: none; /* Firefox */
-//   -ms-overflow-style: none; /* IE 10+ */
-//   &::-webkit-scrollbar {
-//     width: 10px;
-//     background: transparent; /* Chrome/Safari/Webkit */
-//   }
-// }
-
-// .popup_inner {
-//   position: map-get($position, absolute_pos);
-//   top: 0;
-//   right: 0;
-//   margin: auto;
-//   width: 80%;
-//   background: map-get($color, white_color);
-// }
 
 // DonutChart
 .donutchart-track {
@@ -95,7 +65,7 @@ $lineheight: (
   padding: 4px;
 }
 .donutchart-text {
-  font-family: "Helvetica";
+  font-family: map-get($fontfamily, font-1);
 }
 .donutchart-text-val {
   fill: map-get($color, white_color);
@@ -129,8 +99,8 @@ $lineheight: (
   background: map-get($color, color_3);
 }
 .card-1 {
-  width: 95px;
-  padding-right: 0.5em;
+  width: 105px;
+  padding-right: 0.3em;
 }
 
 .card-3 {
@@ -145,13 +115,12 @@ $lineheight: (
   display: inline-table;
   width: 210px;
   height: 100%;
-  margin-left: 3em;
+  margin-left: 1em;
   margin-bottom: 1em;
-  background-color: map-get($color, color_1);
 }
 
 .cardbody-1 {
-  height: 120px;
+  height: 125px;
   background-color: map-get($color, color_1);
 }
 .cardtitle-1 {
@@ -159,7 +128,7 @@ $lineheight: (
   width: 100%;
   font-family: map-get($fontfamily, font-1);
   font-size: 15px;
-  line-height: map-get($lineheight, height_1);
+  // line-height: map-get($lineheight, height_1);
   color: map-get($color, color_2);
 }
 
@@ -183,13 +152,26 @@ $lineheight: (
 .cardsub-3 {
   color: map-get($color, color_2);
 }
-.card-footer {
+.footer-vote {
   background-color: map-get($color, color_3);
   border-radius: 4px;
   font-family: map-get($fontfamily, font-2);
   font-size: 24px;
   line-height: map-get($lineheight, height_3);
   color: map-get($color, color_2);
+  padding: 10px;
+}
+.footer-remove {
+  font-family: map-get($fontfamily, font-1);
+  font-size: 15px;
+  line-height: 15px;
+  text-align: center;
+  text-transform: uppercase;
+  color: map-get($color, color_1);
+  border-radius: 4px;
+  padding: 1rem;
+  background-color: map-get($color, color_2);
+  margin-top: 0.5em;
 }
 .card-img {
   border-radius: 0px;
@@ -198,6 +180,7 @@ $lineheight: (
   opacity: 0;
   text-align: center;
   margin-top: 4em;
+  height: 200px;
 }
 .cardoverlay:hover {
   .overlay {
@@ -295,14 +278,14 @@ $lineheight: (
   width: 35%;
 }
 .right-section {
-  padding-right: 3em;
+  padding-right: 2em;
   position: absolute;
   right: 0;
   top: 2em;
   width: 65%;
 }
 .detail-img {
-  padding: 2em 2em 2em 3em;
+  padding: 1em 0.5em 1em 1.5em;
   margin: 0px;
 }
 .popup-main {
@@ -323,6 +306,35 @@ $lineheight: (
   color: map-get($color, color_2);
   padding-top: 1em;
   padding-bottom: 1em;
+}
+.bookmark,
+.add-watchlist {
+  @extend .chart-text;
+  display: inline-table;
+}
+
+.bookmark svg,
+.add-watchlist svg {
+  font-family: Font Awesome 5 Free;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 30px;
+
+  color: map-get($color, white_color);
+  background: #2b3247;
+}
+
+.bookmark-icon,
+.addwatch-icon {
+  background: #2b3247;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.bookmark .bookmark-text,
+.add-watchlist .addwatch-text {
+  padding: 8px 20px 8px 8px;
 }
 
 // Trailer
@@ -358,6 +370,12 @@ $lineheight: (
 .line-1 {
   border: 1px solid map-get($color, color_2);
 }
+.line-2 {
+  @extend .line-1;
+  width: 113px;
+  margin-left: 0;
+  margin-top: 0.1em;
+}
 
 .sub-header {
   font-family: map-get($fontfamily, font-2);
@@ -391,10 +409,10 @@ $lineheight: (
 .top-rated,
 .upcoming,
 .now-play {
-  border: 1px solid #50e3c2;
+  border: 1px solid map-get($color, color_2);
   box-sizing: border-box;
   border-radius: 4px;
-  background-color: transparent;
+  background-color: inherit;
   width: 150px;
   height: 30px;
 
@@ -402,6 +420,107 @@ $lineheight: (
   font-size: 14px;
   line-height: normal;
   text-transform: uppercase;
-
   color: #ffffff;
+  margin: 0.3em;
+}
+
+.buttons button.active {
+  background-color: map-get($color, color_2);
+  color: map-get($color, color_1);
+}
+/* Tab Menu */
+.tab {
+  height: 100%;
+  width: 100px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgba(80, 227, 194, 0.839646);
+  overflow-x: hidden;
+  padding-top: 8em;
+}
+.tab button {
+  display: block;
+  background-color: transparent;
+  padding: 16px;
+  width: 100%;
+  height: 80px;
+  border: none;
+  outline: none;
+  text-align: center;
+}
+.tab button.active {
+  background-color: map-get($color, color_1);
+}
+.tab button.active svg {
+  color: #8c93aa;
+}
+
+.main {
+  margin-left: 100px;
+}
+.tabcontent {
+  background-color: map-get($color, color_1);
+  margin-left: 100px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px;
+}
+
+.searchBox {
+  border: none;
+  background: map-get($color, color_1);
+
+  color: #b9bfd1;
+  width: 90%;
+  margin-left: 0.5em;
+  margin-bottom: 0.5em;
+  padding: 0;
+}
+.search {
+  font-family: SFCompactText;
+  font-size: 18px;
+  line-height: 21px;
+
+  padding: 0;
+  border-bottom: 1px solid #e8eaf2;
+  margin-left: 1.8em;
+  margin-right: 2.5em;
+}
+.search-icon {
+  margin-left: 1em;
+  color: #b9bfd1;
+  stroke-width: 1;
+  opacity: 0.7;
+}
+
+.bars,
+.stars {
+  font-family: Font Awesome 5 Free;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 40px;
+  line-height: 50px;
+  color: map-get($color, white_color);
+}
+
+// Crew
+.crew {
+  width: 100%;
+}
+.crew div {
+  display: inline-table;
+  padding: 0;
+}
+.crew-job {
+  @extend .cast-title;
+  padding: 0;
+  width: 30%;
+  color: map-get($color, color_4);
+}
+.crew-name {
+  @extend .cast-title;
+  padding: 0;
+  width: 70%;
+  color: map-get($color, color_2);
 }
