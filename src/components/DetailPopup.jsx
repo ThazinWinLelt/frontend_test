@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import "../styles/main.css";
 import $ from "jquery";
+import { FaBookmark, FaStar } from "../../node_modules/react-icons/fa";
+
 import DonutChart from "./DonutChart.jsx";
 import RelatedMovie from "./RelatedMovie.jsx";
 import Cast from "./Cast.jsx";
 import Crew from "./Crew.jsx";
 import Background from "./Background.jsx";
 import Trailer from "./Trailer.jsx";
-import { FaBookmark, FaStar } from "../../node_modules/react-icons/fa";
 
 class DetailPopup extends Component {
   state = {
@@ -68,19 +69,15 @@ class DetailPopup extends Component {
       let set = new Set(watchlist);
       watchlist = Array.from(set);
       localStorage.setItem("watchlist", JSON.stringify(watchlist));
-      console.log("1");
     } else {
       watchlist.push(this.state.detail);
       localStorage.setItem("watchlist", JSON.stringify(watchlist));
-      console.log("2");
     }
 
     this.setState({ watchlist: true });
   }
 
   distinctWatchList(watchlist, comp) {
-    console.log(watchlist);
-
     const unique = watchlist
       .map(e => e[comp])
 
@@ -106,11 +103,12 @@ class DetailPopup extends Component {
     let list = [];
 
     localStorage.clear("watchlist");
-    for (const [index, value] of watchlist.entries()) {
+
+    watchlist.forEach(value => {
       if (value.id !== comp) {
         list.push(value);
       }
-    }
+    });
     localStorage.setItem("watchlist", JSON.stringify(list));
 
     return list;

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import $ from "jquery";
-import DetailPopup from "./DetailPopup.jsx";
 import "../styles/main.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Popup from "reactjs-popup";
+
+import DetailPopup from "./DetailPopup.jsx";
 
 import {
   Card,
@@ -23,6 +24,7 @@ class WatchListComponent extends Component {
 
   constructor(props) {
     super(props);
+
     const movieID = this.props.movie.id;
     const urlString =
       "https://api.themoviedb.org/3/movie/" +
@@ -50,6 +52,7 @@ class WatchListComponent extends Component {
   openModal() {
     this.setState({ open: true });
   }
+
   closeModal() {
     this.setState({ open: false });
   }

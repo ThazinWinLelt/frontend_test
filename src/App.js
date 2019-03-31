@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import "./styles/main.css";
 import $ from "jquery";
-import MovieComponent from "./components/MovieComponent.jsx";
-import WatchListComponent from "./components/WatchListComponent.jsx";
 import no_image from "./images/no-image.jpg";
 import { FaBars, FaStar, FaSearch } from "react-icons/fa";
+
+import MovieComponent from "./components/MovieComponent.jsx";
+import WatchListComponent from "./components/WatchListComponent.jsx";
 
 class App extends Component {
   state = {
@@ -53,6 +54,7 @@ class App extends Component {
         console.error("Failed to fetch data");
       }
     });
+
     this.setState({ movieactive: "top-rated" });
   }
 
@@ -157,7 +159,32 @@ class App extends Component {
     this.getWatchList(local);
   }
 
-  searchHandler(event) {
+  searchWatchlistHandler(event) {
+    const searchTerm = event.target.value;
+    let local = [];
+    local = localStorage.getItem("watchlist");
+
+    let searchMovies = [];
+
+    if (local) {
+      local = JSON.parse(local);
+
+      if (searchTerm !== "") {
+        local.forEach(local => {
+          let title = local.original_title.toLocaleLowerCase();
+          if (title.indexOf(searchTerm) >= 0) {
+            searchMovies.push(local);
+          }
+        });
+        local = searchMovies;
+      }
+    }
+
+    this.setMoviesList(local);
+    this.getWatchList(local);
+  }
+
+  searchMovieHandler(event) {
     const searchTerm = event.target.value;
 
     if (searchTerm === "") {
@@ -182,7 +209,7 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{ backgroundColor: "2b3247" }}>
+      <div>
         <div className="tab">
           <button
             className={
@@ -214,7 +241,11 @@ class App extends Component {
             <FaSearch className="search-icon" />
             <input
               className="searchBox"
-              onChange={this.searchHandler.bind(this)}
+              onChange={
+                this.state.tabactive === "movie"
+                  ? this.searchMovieHandler.bind(this)
+                  : this.searchWatchlistHandler.bind(this)
+              }
               placeholder="Search..."
             />
           </div>
@@ -270,7 +301,7 @@ class App extends Component {
               now playing
             </button>
           </div>
-          <div className="body container-fluid">
+          <div className="body container-fluid" style={{ paddingTop: "20px" }}>
             <div className="row">{this.state.rows}</div>
           </div>
         </div>
@@ -284,7 +315,7 @@ class App extends Component {
               : { display: "none" }
           }
         >
-          <div className="body container-fluid">
+          <div className="body container-fluid" style={{ paddingTop: "20px" }}>
             <div className="row">{this.state.rows}</div>
           </div>
         </div>

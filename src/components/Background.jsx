@@ -10,7 +10,6 @@ class Background extends Component {
     super(props);
 
     const movieid = this.props.movieid;
-    // const movieid = 284053;
 
     const backgroundUrl =
       "https://api.themoviedb.org/3/movie/" +
